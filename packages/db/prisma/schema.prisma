@@ -10,56 +10,85 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id      String @id @default(cuid())
-    title   String
-    content String
+model Bookmark {
+    id        Int      @id
+    title     String
+    url       String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    typeId     String
+    type       Type      @relation(fields: [typeId], references: [id], onDelete: Cascade)
+    groupId    String?
+    group      Group?    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    languageId String?
+    language   Language? @relation(fields: [languageId], references: [id], onDelete: Cascade)
+    siteId     Int?
+    site       Site?     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+    Image      Image?
+
+    TagsOnBookmarks TagsOnBookmarks[]
 }
 
-// NextAuth.js Models
-// NOTE: When using postgresql, mysql or sqlserver, 
-// uncomment the @db.Text annotations below
-// @see https://next-auth.js.org/schemas/models
-model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+model TagsOnBookmarks {
+    bookmark   Bookmark @relation(fields: [bookmarkId], references: [id], onDelete: Cascade)
+    bookmarkId Int
+    tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+    tagId      String
+    createdAt  DateTime @default(now())
+    siteId     Int?
 
-    @@unique([provider, providerAccountId])
+    @@id([bookmarkId, tagId])
 }
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Image {
+    id        String   @id
+    url       String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    bookmarkId Int      @unique
+    bookmark   Bookmark @relation(fields: [bookmarkId], references: [id])
 }
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+model Group {
+    id        String   @id
+    name      String
+    createdAt DateTime @default(now())
+
+    Bookmark Bookmark[]
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+model Tag {
+    id        String   @id
+    name      String
+    createdAt DateTime @default(now())
 
-    @@unique([identifier, token])
+    TagsOnBookmarks TagsOnBookmarks[]
+}
+
+model Type {
+    id        String   @id
+    name      String
+    createdAt DateTime @default(now())
+
+    Bookmark Bookmark[]
+}
+
+model Language {
+    id        String   @id
+    name      String
+    createdAt DateTime @default(now())
+
+    Bookmark Bookmark[]
+}
+
+model Site {
+    id        Int      @id
+    name      String
+    domain    String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    bookmark Bookmark[]
 }
