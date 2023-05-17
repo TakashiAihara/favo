@@ -1,0 +1,24 @@
+- Register Tags
+- Get Page Image
+- Generated Tags
+- Category
+- Get title
+- Get Text size
+- Guess Read time
+- Get Hatena Count
+- Get Zenn Good
+- Get Qiita Good
+- Search
+- Import
+  - Chrome Account
+  - Edge
+  - Firefox Account
+  - File
+  - OneTab
+- Word Cloud
+- ChatGPT Summary
+- Android share
+- Chrome Ext
+- Auto detect Type
+- Detect Adult, Violation, Danger, Violence, Or else
+- MindMap

@@ -1,11 +1,4 @@
 {
-  "name": "@acme/expo",
-  "version": "0.1.0",
-  "main": "index.tsx",
-  "scripts": {
-    "lint": "eslint .",
-    "type-check": "tsc --noEmit"
-  },
   "dependencies": {
     "@trpc/client": "^10.25.0",
     "@trpc/server": "^10.25.0",
@@ -24,5 +17,12 @@
     "eslint": "^8.40.0",
     "typescript": "^5.0.4"
   },
-  "private": true
+  "main": "index.ts",
+  "name": "@acme/cli",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "version": "0.1.0"
 }

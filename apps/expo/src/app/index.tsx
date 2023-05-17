@@ -13,17 +13,17 @@ const PostCard: React.FC<{
   const router = useRouter();
 
   return (
-    <View className="flex flex-row rounded-lg bg-white/10 p-4">
+    <View className="rounded-lg flex flex-row bg-white/10 p-4">
       <View className="flex-grow">
         <TouchableOpacity onPress={() => router.push(`/post/${post.id}`)}>
-          <Text className="text-xl font-semibold text-pink-400">
+          <Text className="font-semibold text-xl text-pink-400">
             {post.title}
           </Text>
           <Text className="mt-2 text-white">{post.content}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={onDelete}>
-        <Text className="font-bold uppercase text-pink-400">Delete</Text>
+        <Text className="font-bold text-pink-400 uppercase">Delete</Text>
       </TouchableOpacity>
     </View>
   );
@@ -46,7 +46,7 @@ const CreatePost: React.FC = () => {
   return (
     <View className="mt-4">
       <TextInput
-        className="mb-2 rounded bg-white/10 p-2 text-white"
+        className="rounded bg-white/10 text-white mb-2 p-2"
         placeholderTextColor="rgba(255, 255, 255, 0.5)"
         value={title}
         onChangeText={setTitle}
@@ -58,7 +58,7 @@ const CreatePost: React.FC = () => {
         </Text>
       )}
       <TextInput
-        className="mb-2 rounded bg-white/10 p-2 text-white"
+        className="rounded bg-white/10 text-white mb-2 p-2"
         placeholderTextColor="rgba(255, 255, 255, 0.5)"
         value={content}
         onChangeText={setContent}
@@ -98,7 +98,7 @@ const Index = () => {
       {/* Changes page title visible on the header */}
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
-        <Text className="mx-auto pb-2 text-5xl font-bold text-white">
+        <Text className="font-bold mx-auto text-white pb-2 text-5xl">
           Create <Text className="text-pink-400">T3</Text> Turbo
         </Text>
 
@@ -109,7 +109,7 @@ const Index = () => {
         />
 
         <View className="py-2">
-          <Text className="font-semibold italic text-white">
+          <Text className="font-semibold text-white italic">
             Press on a post
           </Text>
         </View>
